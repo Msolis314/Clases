@@ -1,0 +1,23 @@
+#!/bin/bash
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <file_path>"
+    exit 1
+fi
+
+file_path="$1"
+
+if [ -e "$file_path" ]; then
+    echo "Opcion 1: $file_path"
+else
+    touch "$file_path"
+    if [ $? -eq 0 ]; then
+        echo "Opcion 2: $file_path"
+    else
+        echo "Opcion 3: $file_path"
+        exit 1
+    fi
+fi
+
+exit 0
