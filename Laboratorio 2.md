@@ -122,11 +122,12 @@ Ahora, si se corre el comando de `sudo systemctl status ejercicio4` se obtiene:
 Por tanto, el servicio ha sido creado y activado exitosamente en el sistema. 
 Si se modifica el directorio Prueba a las 8:48 como se evidencia en las siguientes imágenes.
 ![alt image](https://github.com/Msolis314/Clases/blob/main/Pasted%20image%2020230914204817.png)
-![[alt image](https://github.com/Msolis314/Clases/blob/main/Pasted%20image%2020230914204848.png)
+![alt image](https://github.com/Msolis314/Clases/blob/main/Pasted%20image%2020230914204848.png)
 
 El archivo *log2.txt* registra lo siguiente:
 
 ![alt image](https://github.com/Msolis314/Clases/blob/main/Pasted%20image%2020230914204952.png)
+
 Por tanto, se ha logrado el objetivo del servicio. 
 ## V Git Hub
 [Link Github](https://github.com/Msolis314/Lab2)
