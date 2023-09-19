@@ -1,0 +1,10 @@
+gnuplot_commands=$(cat <<EOF
+set terminal pngcairo size 800,600 enhanced font 'Arial,12'
+set output 'output.png'
+set title "Main Title"
+set xlabel "X-Axis Label"
+set ylabel "Y-Axis Label"
+plot 'data1.dat' using 1:2 with lines title "Series 1", \
+     'data2.dat' using 1:2 with points title "Series 2"
+EOF
+)
