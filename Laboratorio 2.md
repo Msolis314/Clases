@@ -14,7 +14,7 @@ echo "Path del ejecutable: $( ps -p $1 -o command= )"
 ```
 ### I.I Resultados
 Para probar el *script* se crea un proceso `sleep 4000` y su id se incerta por parámetro. Como se denota a continuación se imprime correctamente lo solicitado en el ejercicio: 
-![[Pasted image 20230914205507.png]]
+![alt image](Pasted image 20230914205507.png)
 
 ## II Ejercicio 
 En este problema se recibe un nombre y un path de un proceso con el fin del mantenerlo activo con el script. Primero, revisa si el proceso está corriendo mediante un `if` y `pidof` si logra obtener un id el `if` lo valora como *true* y establece la variable id; si no, ejecuta el proceso y obtiene su id.
