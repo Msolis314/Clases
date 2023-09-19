@@ -14,6 +14,7 @@ echo "Path del ejecutable: $( ps -p $1 -o command= )"
 ```
 ### I.I Resultados
 Para probar el *script* se crea un proceso `sleep 4000` y su id se incerta por parámetro. Como se denota a continuación se imprime correctamente lo solicitado en el ejercicio: 
+
 ![alt image](https://github.com/Msolis314/Clases/blob/Msolis314-patch-1/Pasted%20image%2020230914205507.png)
 
 ## II Ejercicio 
@@ -71,7 +72,9 @@ gnuplot --persist -e ' set title "Grafico %CPU"; set output "%CPU.png" ; set xla
 ```
 ### III.I Resultados
 Ingresando el siguiente comando en la terminal `./Ejercicio3.sh "ping -c 20 www.google.com"` para tener un proceso para monitorear como se evidencia en la siguiente imagen.
-![[Lab2.3.1.png]]
+
+![Resultados](https://github.com/Msolis314/Clases/blob/main/Lab2.3.1.png)
+
 Se obtienen los siguientes gráficos para el %cpu y  el %mem. 
 ![[Pasted image 20230914200922.png]]
 ![[Pasted image 20230914201129.png]]
