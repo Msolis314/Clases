@@ -28,20 +28,23 @@ int Flag_Identifier( char *flag, int num_argc, char *argv[] , char *path_entrada
 	char path[] = "-i";
 	char destiny[] = "-o";
 	char transform[] = "-r";
-	int x = Compare (flag , help);
+	int x = Compare (flag , path);
 	printf("%d\n",x);
-
+	printf("%s\n",flag);	
 	switch ( num_argc ) {
 		case HELP:
 			if ( Compare( flag , help ) == 1 || Compare( flag , h ) == 1) {
 				printf("Help\n");
-				return True;
+				return False;
 			} else { 
 				printf("Flag invalido\n");
+				return False;
 			}
 			break;
 		case IMAGE:
-			printf("YEs\n");
+			if ( Compare( flag , path ) == 1 ) {
+				path_entrada = *( argv + 2);
+			}
 			return True;
 			break;
 		default: 
@@ -55,17 +58,13 @@ int Flag_Identifier( char *flag, int num_argc, char *argv[] , char *path_entrada
 
 }
 int main(int argc, char *argv[]) {
-        printf("%s\n", argv[1]);
-	char string1[] = "argv[1]";
-	char string2[] = "argv[2]";
+        printf("%s\n", argv[2]);
 	char path[20] , out[20];
 
 
-	int x = Flag_Identifier( string1 , argc -1 , argv , path , out);
+	int x = Flag_Identifier( argv[1] , argc -1 , argv , path , out);
 	printf("%d\n",x);
-        for(int i =1 ; i < argc ; i++) {
-                printf("%s\n es %d \n", argv[i] , i);
-        }
+    
 
         return 0;
 }
