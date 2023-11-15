@@ -1,14 +1,21 @@
 #include <png.h> 
 #include <stdlib.h>
 #include <stdio.h>
+#include "declaraciones.h"
 int width, height;
 png_infop info_ptr;
 png_byte color_type;
 
 png_byte bits_d;
 
+//png_bytep es un typedef de un pointer a un array, aqui realmente estoy creando un **pointer
+png_bytep *filas_ptr= NULL;
 
-png_bytep *row_pointers= NULL;
+/*Lee el archivo png
+ * Tiene por parametros el path
+ *crea en memoria una matriz con los bytes , el **pointer es filas_ptr
+ *
+ * */
 
 void read_png(char *path) {
 	//Primero la libreria debe abrir el archivo, ya se comprobo que exista
@@ -72,22 +79,47 @@ void read_png(char *path) {
 	}
 
 	png_read_update_info(png_ptr,info_ptr);
-	row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * height);
+	//Creo la matriz con los bytes
+	//Aqui estoy obteniendo la direncion a un espacio en memoria con el size del array * la altura en pixels
+	filas_ptr = (png_bytep*)malloc(sizeof(png_bytep) * height);
+	if ( filas_ptr == NULL ) {
+		png_destroy_read_struct(&png_ptr, &info_ptr,NULL);
+                fclose(fp);
+                fprintf(stderr, "No hay memoria en el Heap.\n");
+                return;
+
+	}
+
+	//Aqui estoy acomodando el espacio de los bytes por fila en cada array
+	//png_get_rowbytes devuelve el numero de bytes por fila
   	for(int y = 0; y < height; y++) {
-   		 row_pointers[y] = (png_byte*)malloc(png_get_rowbytes(png_ptr,info_ptr));
+   		 filas_ptr[y] = (png_byte*)malloc(png_get_rowbytes(png_ptr,info_ptr));
  	 }
 
-  	png_read_image(png_ptr, row_pointers);
-	//png_read_png( png_ptr , info_ptr , PNG_TRANSFORM_IDENTITY , NULL);
-	//row_pointers = png_get_rows(png_ptr, info_ptr);
-	//
+	//png_read_image() lee la imagen y guarda los datos en el array filas_ptr
+
+  	png_read_image(png_ptr, filas_ptr);
+	
 	png_read_end(png_ptr, NULL);
 	png_destroy_read_struct(&png_ptr, &info_ptr,NULL);
+
+	/*for ( int i = 0 ; i < height ; i++) {
+		free(filas_ptr[i]);
+	}
+
+	free(filas_ptr);*/
 	fclose(fp);
 	printf("READ\n");
 }
 
+void test_png( png_bytep *array ) {
+	int  x = array[0][1];
+	printf("%d\n", x);
+}
+
 int main(){ 
 	read_png("dog.png");
+	//void Png_Write ( char *path_salida , png_bytep *newarray )
+	Png_Write( "nuevo.png" , filas_ptr);
 	return 0;
 }

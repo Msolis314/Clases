@@ -2,35 +2,29 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
+/*Esta funcion revisa si el archivo es un png
+ *resibe el path del archivo
+ *retorna True or False segun sea el caso
+ *
+ * */
 int Not_PNG( char *path ) {
 	FILE *fp = fopen( path , "rb" );
         if (!fp) {
-                return -1;
+                return False;
         }
         unsigned char header[8];
 
         if ( fread(header,1, sizeof(header), fp)< 8) {
                 fclose(fp);
-                return -1;
+                return True;
         }
         if ( png_sig_cmp(header,0,8) ) {
                 fclose(fp);
-                return -1 ;
+                return False ;
         }
 	printf("IS PNG.\n");
 	fclose(fp);
-	return 0;
+	return True;
 
 
-}
-int main() {
-	char path[50];
-	printf("Digite un path:\n");
-	scanf("%s" , path);
-	int x = Not_PNG( path );
-
-	printf("%d\n",x);
-
-	return 0;
 }

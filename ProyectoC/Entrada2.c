@@ -2,19 +2,23 @@
 #include <stdlib.h>
 enum True_False { True = 1 , False = 0 };
 
-int Compare( char *string1 , char *string2) {
-	enum True_False result = True;
+int Compare_Strings( char *string1 , char *string2) {
+        enum True_False result = True;
         int  counter=0;
-       	while ( *(string1 + counter) != '\0' && *(string2 +counter) != '\0') {
-		if ( *(string1 + counter) != *(string2 +counter) ) {
-			result = False;
-			return result;
-		}
-		counter++;
-	}
-	return result;	
-	
+        //La condicion del while es que mientras no se llegue al final de una de las strings siga comparando
+        while ( *(string1 + counter) != '\0' && *(string2 +counter) != '\0') {
+                //Apenas se llegue a una diferencia devuelve el valor de Falso
+                if ( *(string1 + counter) != *(string2 +counter) ) {
+                        result = False;
+                        return result;
+                }
+                counter++;
+        }
+        //Si se ejecuta todo el while las strings son iguales
+        return result;
+
 }
+
 enum Posible_Flag_Num { HELP = 1 , IMAGE = 5 };
 
 int Flag_Identifier( char *flag, int num_argc, char *argv[] , char *path_entrada , char *path_salida ) {

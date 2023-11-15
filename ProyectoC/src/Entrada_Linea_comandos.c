@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include "declaraciones.h"
 /*Esta parte se encarga de validar las entradas desde la linea de comandos
  *
  *
@@ -7,25 +9,9 @@
  * */
 
 //Defino este enum para poder usar las expresiones True y False a lo largo del codigo
-enum True_False { True = 0 , False = 1 };
+//enum True_False { True = 0 , False = -1 };
 
-// Funcion para comparar 2 strings
-int Compare_Strings( char *string1 , char *string2) {
-	enum True_False result = True;
-        int  counter=0;
-	//La condicion del while es que mientras no se llegue al final de una de las strings siga comparando
-       	while ( *(string1 + counter) != '\0' && *(string2 +counter) != '\0') {
-		//Apenas se llegue a una diferencia devuelve el valor de Falso
-		if ( *(string1 + counter) != *(string2 +counter) ) {
-			result = False;
-			return result;
-		}
-		counter++;
-	}
-	//Si se ejecuta todo el while las strings son iguales
-	return result;
 
-}
 
 
 enum Posible_Flag_Num { HELP = 2 , IMAGE = 6 };
@@ -52,14 +38,19 @@ int Flag_Identifier(  int num_argc, char *argv[] , char *path_entrada , char *pa
 		case IMAGE:
 			for ( int i = 1; i < num_argc ; i++ ) {
 			       	if ( strcmp( *(argv + i) , "-i") == True ) {
-					path_entrada = *(argv + i + 1);
-					//Aqui se debe checkear si el directorio existe
+					strcpy( path_entrada , *(argv +i +1));
+					printf("%s\n",path_entrada);
+					if ( Exist_Dir( path_entrada ) == False ) {
+						return False;
+					}
 				       	//quiero que se salte a la otra iteracion
 					i+=1;
 			 	} else if ( strcmp( *(argv + i) , "-o") == True) {
-					path_salida = *(argv + i +1);
-					//Aqui se debe checkear si el directorio existe
-					//quiero que se salte a la otra iteracion
+					strcpy( path_salida , *(argv +i +1));
+					if ( !path_salida ) {
+                                                return False;
+                                        }
+
 					i+=1;
 				} else if (  strcmp( *(argv + i), "-r") == True) {
 					transformacion = *(argv +i);
@@ -75,17 +66,20 @@ int Flag_Identifier(  int num_argc, char *argv[] , char *path_entrada , char *pa
 			return False;
 	}
 }
-int main(int argc, char *argv[]) {
-        //printf("%s\n", argv[1]);
-	char path[20] , out[20] , transform[20];
+/*int main(int argc, char *argv[]) {
+      
+	char path[35] , out[35] , transform[4];
 
-	//char probe[] = "-help";
-	//int y = strcmp( argv[1] , probe);
-	//printf("%d\n",y);
+	//strcpy(path, *(argv +2));
+	//printf("%s\n",path);
 
 	int x = Flag_Identifier( argc   , argv , path , out, transform);
-	printf("%d\n",x);
-    
+	printf("%s\n",path);
+    	if ( x == False ) {
+		exit(False);
+	} else {
+		printf("El programa continua\n");
+	}
 
         return 0;
-}
+}*/
